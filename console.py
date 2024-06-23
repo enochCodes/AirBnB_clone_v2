@@ -135,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
             if type(kv_pair[1]) is str:
                 kv_pair[1] = kv_pair[1].replace('_', ' ')
             kwargs[kv_pair[0]] = kv_pair[1]
-        new_instance = HBNBCommand.classes[params[0]]()
+        new_instance = HBNBCommand.classes[params[0]](**kwargs)
         storage.save()
         print(new_instance.id)
         storage.save()
