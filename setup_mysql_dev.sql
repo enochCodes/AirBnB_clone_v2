@@ -1,7 +1,7 @@
 -- A SCRIPT TO PREPARE THE SERVER FOR THE PROJECT --
 -- CREATE DATABASE `hbnb_dev_db` --
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
--- MAKE THE DATABASE ACTIVEi --
+-- MAKE THE DATABASE ACTIVE --
 USE hbnb_dev_db;
 -- CREATE USER `hbnb_dev` WITH A PASSWORD `hbnb_dev_pwd` --
 CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
