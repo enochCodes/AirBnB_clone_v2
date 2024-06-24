@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-
+import models
 
 Base = declarative_base()
 
@@ -28,30 +28,37 @@ class BaseModel:
                 if k in ["created_at", "updated_at"]:
                     v = datetime.fromisoformat(v)
                 setattr(self, k, v)
+            if 'id' not in kwargs:
+                self.id = str(uuid.uuid4())
+            if 'created_at' not in kwargs:
+                self.created_at = datetime.now()
+            if 'updated_at' not in kwargs:
+                self.updated_at = datetime.now()
 
     def __str__(self):
         """Returns a string representation of the instance"""
-        cls = self.__class__.__name__ 
+        cls = self.__class__.__name__
         return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
-        from models import storage
         self.updated_at = datetime.now()
-        storage.new(self)
-        storage.save()
+        models.storage.new(self)
+        models.storage.save()
 
     def delete(self):
         """Deletes the current instance from the storage"""
-        from models import storage
-        storage.delete(self)
-        storage.save()
+        models.storage.delete(self)
+        models.storage.save()
 
     def to_dict(self):
         """Convert instance into dict format"""
-        return dict({
+        i_dict = dict({
             **self.__dict__,
             "__class__": self.__class__.__name__,
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat()
             })
+        if '_sa_instance_state' in i_dict:
+            del i_dict['_sa_instance_state']
+        return i_dict
