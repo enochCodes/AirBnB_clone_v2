@@ -21,7 +21,7 @@ class test_fileStorage(unittest.TestCase):
         """ Remove storage file at end of tests """
         try:
             os.remove('file.json')
-        except:
+        except Exception:
             pass
 
     def test_obj_list_empty(self):
@@ -59,6 +59,15 @@ class test_fileStorage(unittest.TestCase):
         new = BaseModel()
         storage.save()
         self.assertTrue(os.path.exists('file.json'))
+
+    def test_delete(self):
+        """ FileStorage delete method """
+        new_state = State()
+        storage.save()
+        storage.reload()
+        storage.delete(new_state)
+        temp = storage.all()
+        self.assertTrue(not temp)
 
     def test_reload(self):
         """ Storage file is successfully loaded to __objects """
