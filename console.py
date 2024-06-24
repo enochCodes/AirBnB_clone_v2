@@ -4,7 +4,7 @@ import cmd
 import sys
 import shlex
 from models.base_model import BaseModel
-from models.__init__ import storage
+from models import storage
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -136,9 +136,9 @@ class HBNBCommand(cmd.Cmd):
                 kv_pair[1] = kv_pair[1].replace('_', ' ')
             kwargs[kv_pair[0]] = kv_pair[1]
         new_instance = HBNBCommand.classes[params[0]](**kwargs)
-        storage.save()
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
+        # storage.save()
 
     def help_create(self):
         """ Help information for the create method """
