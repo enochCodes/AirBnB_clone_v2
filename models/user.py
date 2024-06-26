@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 
 from models.base_model import BaseModel, Base
 from models.place import Place
+from models.review import Review
 import models
 
 
@@ -19,6 +20,7 @@ class User(BaseModel, Base):
         last_name = Column(String(128), nullable=True)
 
         places = relationship('Place', backref='user', cascade="all")
+        reviews = relationship('Review', backref='user', cascade="all")
     else:
         email = ''
         password = ''
