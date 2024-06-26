@@ -4,20 +4,20 @@ from sqlalchemy import Table, Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 
 from models.base_model import BaseModel, Base
-from models.review import Review
+# from models.review import Review
+# from models.amenity import Amenity
 import models
+
 
 if models.storage_type == 'db':
     place_amenity = Table(
-            'place_amenity',
-            Base.metadata,
+            'place_amenity', Base.metadata,
             Column(
-                'place_id',
-                String(60), ForeignKey('places.id'), nullable=False),
+                'place_id', String(60),
+                ForeignKey('places.id'), nullable=False),
             Column(
-                'amenity_id',
-                String(60), ForeignKey('amenities.id'), nullable=False)
-            )
+                'amenity_id', String(60),
+                ForeignKey('amenities.id'), nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -54,4 +54,18 @@ class Place(BaseModel, Base):
     if not models.storage_type == 'db':
         @property
         def reviews(self):
-            return [r for r in storage.all(Review) if self.id == r.place_id]
+            """Reviews getter"""
+            all_r = models.storage.all(Review).values()
+            return [r for r in all_r if self.id == r.place_id]
+
+        @property
+        def amenities(self):
+            """Amenities getter"""
+            all_a = models.storage.all(Amenity).values()
+            return [a for a in all_a if a.id in seld.amenity_ids]
+
+        @amenities.setter
+        def amenities(self, value):
+            """Amenities setter"""
+            if type(value) is Amenity:
+                self.amenity_ids.append(value.id)

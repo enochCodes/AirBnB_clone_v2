@@ -11,7 +11,6 @@ import models
 
 class City(BaseModel, Base):
     """ The city class, contains state ID and name """
-    
 
     if models.storage_type == 'db':
         __tablename__ = "cities"

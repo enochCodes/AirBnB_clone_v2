@@ -144,7 +144,5 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 <hr>
  
 <center> <h1>HBNB - MySQL/h1> </center>
-usage:
-(hbnb) env.production
-(hbnb) env.test
-(hbnb) env.devlopment
+In this project we've added a new Storgae Type
+SQL Database
