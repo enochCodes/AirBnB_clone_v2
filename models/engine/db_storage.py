@@ -34,11 +34,9 @@ class DBStorage:
 
     def all(self, cls=None):
         """query all objects depending of the class name"""
-        self.__session = sessionmaker(bind=engine)()
         data = {}
-
         if cls:
-            records = self.session.query(cls).all()
+            records = self.__session.query(cls).all()
             for rec in records:
                 data[f'{rec.__class__.__name__}.{rec.id}'] = rec
         else:
@@ -51,9 +49,10 @@ class DBStorage:
                     "Review": Review
                     }
             for cl in all_cls:
-                records = self.session.query(all_cls[cl]).all()
+                records = self.__session.query(all_cls[cl]).all()
                 for rec in records:
                     data[f'{rec.__class__.__name__}.{rec.id}'] = rec
+        return data
 
     def new(self, obj):
         """Adds the object to the current database session"""
@@ -73,5 +72,4 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(
                 bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(session_factory)
-        self.__session = Session()
+        self.__session = scoped_session(session_factory)()
