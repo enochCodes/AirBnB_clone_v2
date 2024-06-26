@@ -62,7 +62,7 @@ class Place(BaseModel, Base):
         def amenities(self):
             """Amenities getter"""
             all_a = models.storage.all(Amenity).values()
-            return [a for a in all_a if a.id in seld.amenity_ids]
+            return [a for a in all_a if a.id in self.amenity_ids]
 
         @amenities.setter
         def amenities(self, value):
