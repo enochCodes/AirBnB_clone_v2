@@ -38,8 +38,6 @@ class DBStorage:
         if cls:
             records = self.__session.query(cls).all()
             for rec in records:
-                if hasattr(rec, '_sa_instance_state'):
-                    delattr(rec, '_sa_instance_state')
                 data[f'{rec.__class__.__name__}.{rec.id}'] = rec
         else:
             all_cls = {
