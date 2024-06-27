@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 
 from models.base_model import BaseModel, Base
 # from models.review import Review
-# from models.amenity import Amenity
+from models.amenity import Amenity
 import models
 
 
