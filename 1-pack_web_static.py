@@ -22,14 +22,13 @@ def do_pack():
     minute = now.minute if now.minute > 9 else f"0{now.minute}"
     second = now.second if now.second > 9 else f"0{now.second}"
     path = f"versions/web_static_{year}{month}{day}{hour}{minute}{second}.tgz"
-    recource = "web_static"
     if not os.path.isdir("versions"):
         try:
             local("mkdir versions")
         except Exception:
             return None
     try:
-        local(f"tar -czvf {path} {resource}")
+        local(f"tar -cvzf {path} web_static")
         return path
     except Exception:
         return None
