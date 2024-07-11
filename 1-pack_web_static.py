@@ -22,11 +22,13 @@ def do_pack():
     second = now.second if now.second > 9 else f"0{now.second}"
     path = f"versions/web_static_{year}{month}{day}{hour}{minute}{second}.tgz"
     recource = "/data/web_static/"
-    try:
-        local("mkdir versions")
-    except Exception:
+    if !os.path.isdir("versions"):
         try:
-            local(f"tar -czvf {path} {resource}")
-            return path
+            local("mkdir versions")
         except Exception:
             return None
+    try:
+        local(f"tar -czvf {path} {resource}")
+        return path
+    except Exception:
+        return None
