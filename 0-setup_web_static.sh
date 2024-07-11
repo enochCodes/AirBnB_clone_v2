@@ -29,3 +29,4 @@ sed -i 's/server_name _;/server_name _;\n\tlocation \/hbnb_static {\n\t\talias \
        	/etc/nginx/sites-available/default
 
 # Restart nginx to apply changes
+service nginx restart
