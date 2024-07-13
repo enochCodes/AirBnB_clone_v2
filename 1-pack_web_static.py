@@ -8,8 +8,9 @@ folder of the AirBnB Clone repo, using the function do_pack
 import os
 from fabric.api import local
 from datetime import datetime
+from fabric import task
 
-
+@task
 def do_pack():
     """Generates .tgz file
     from the content of the web_static"""
